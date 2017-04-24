@@ -18,13 +18,13 @@ cache:
   directories:
   - "$HOME/.pre-commit"
 before_install: pip install -U setuptools
-install: pip install -U pytest pre-commit
+install: pip install -U pytest pytest-sugar pre-commit
 script: |
     if [[ $TOXENV == pre-commit ]]
     then
         pre-commit run --all-files
     else
-        pytest
+        pytest aiohttp_ripozo/tests.py -vv
     fi
 deploy:
   provider: pypi
