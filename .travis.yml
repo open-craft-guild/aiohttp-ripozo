@@ -1,0 +1,34 @@
+sudo: false
+language: python
+python:
+- 3.4
+- 3.5
+- 3.6
+- 3.6-dev
+- pypy
+- pypy3
+- nightly
+matrix:
+  fast_finish: true
+  include:
+  - python: 3.6
+    env: TOXENV=pre-commit
+cache:
+  pip: true
+  directories:
+  - $HOME/.pre-commit
+before_install: pip install -U setuptools
+install: pip install -U pytest
+script: pytest
+deploy:
+  provider: pypi
+  server: https://upload.pypi.org/legacy/
+  on:
+    tags: true
+    all_branches: true
+    python: 3.6
+  user: webknjaz
+  distributions: dists
+  skip_upload_docs: true
+  password:
+    secure: '{{secret_place}}'
