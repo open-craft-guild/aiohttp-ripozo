@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/pypi/v/aiohttp-ripozo.svg
    :target: https://pypi.org/project/aiohttp-ripozo
 
-.. image:: https://img.shields.io/travis/cherrypy/aiohttp-ripozo/master.svg?label=Linux%20build%20%40%20Travis%20CI
-   :target: http://travis-ci.org/cherrypy/aiohttp-ripozo
+.. image:: https://img.shields.io/travis/open-craft-guild/aiohttp-ripozo/master.svg?label=Linux%20build%20%40%20Travis%20CI
+   :target: http://travis-ci.org/open-craft-guild/aiohttp-ripozo
 
 .. image:: https://img.shields.io/pypi/pyversions/aiohttp-ripozo.svg
 
