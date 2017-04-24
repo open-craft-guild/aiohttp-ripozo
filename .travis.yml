@@ -10,6 +10,9 @@ python:
 - nightly
 matrix:
   fast_finish: true
+  allow_failures:
+  - python: pypy
+  - python: pypy3
   include:
   - python: 3.6
     env: TOXENV=pre-commit
