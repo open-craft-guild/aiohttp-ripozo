@@ -18,8 +18,14 @@ cache:
   directories:
   - "$HOME/.pre-commit"
 before_install: pip install -U setuptools
-install: pip install -U pytest
-script: pytest
+install: pip install -U pytest pre-commit
+script: |
+    if [[ $TOXENV == pre-commit ]]
+    then
+        pre-commit run --all-files
+    else
+        pytest
+    fi
 deploy:
   provider: pypi
   server: https://upload.pypi.org/legacy/
