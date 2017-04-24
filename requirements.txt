@@ -1,1 +1,2 @@
 aiohttp >= 2.0.0
+ripozo >= 1.3.0
