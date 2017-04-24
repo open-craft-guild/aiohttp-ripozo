@@ -16,7 +16,7 @@ matrix:
 cache:
   pip: true
   directories:
-  - $HOME/.pre-commit
+  - "$HOME/.pre-commit"
 before_install: pip install -U setuptools
 install: pip install -U pytest
 script: pytest
@@ -31,4 +31,4 @@ deploy:
   distributions: dists
   skip_upload_docs: true
   password:
-    secure: '{{secret_place}}'
+    secure: WnMZ34Oktp9fBtQZPjaBbpK9won00+CwDc5XU26ztls/OTdt4zpy1vM6G8lu56DYjI3kJplQt9T0D9Zoxw+qR6eV7YoZUP2v5aWXRLl79CVJFzcEwYr1089w02o1BJ9DqlJLW+dL+w6oWLo9T80TbelkDzXSVRArZ87GU5NzTCapHip+UVdwj+1DJMPCiphDQTX0fRjZ7l5k65nSv7ANcYmlDKjSWGXuIKMXIqSrUtOxyVk3N37/lEtpJJrx+eSvuHhvsICjMpcIfpWB6sMp4pBqHIAmm1nmMs7kOBbpZIheXcuEDUP4ox52DAqJrM7n9RjmcCNSGFX9oTxFdedMUF4CHsgnT6sz7SQT30vGywF2rOcqUFFDVyykN7Bf64ewHBj91s/3R1GxBPJOBAPVAKgVG4i/WMO9tRYchyLjZ9aAWPlh1ZYc2ihYKcrBdE0xK9hg1021EkBmmdghwREtyeORXWOQEVA4YKkQx9wu4OfAdQVWjJI3nJ0bMm1PqbWkDCkGeF1z46ZMsLnfHQ6X9n6p4xmGKB9WW2/U6o6jZXAK+tgyafjypdLbbgTIXTZ8e/NegcpzLNfmpYMnc71kEEInTuVsiZDUhJ15hTki8fONMA9q1IbKTsQ1pmKaIpyPxWgeKRT8nCosC2G4PkUODIkRlCMFezDZ2YPm9ybi0Ug=
