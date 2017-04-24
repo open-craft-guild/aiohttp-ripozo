@@ -18,8 +18,8 @@ _logger = logging.getLogger(__name__)
 
 
 def exception_handler(dispatcher, accepted_mimetypes, exc):
-    """
-    Responsible for handling exceptions in the project.
+    """Handle exceptions in the project.
+
     This catches any RestException (from ripozo.exceptions)
     and calls the format_exception class method on the adapter
     class.  It will appropriately set the status_code, response,
@@ -42,18 +42,15 @@ def exception_handler(dispatcher, accepted_mimetypes, exc):
 
 
 class AIODispatcher(DispatcherBase):
-    """
-    This is the actual dispatcher responsible for integrating
-    ripozo with flask.  Pretty simple right?
-    """
+    """The actual dispatcher responsible for integrating ripozo w/ aiohttp."""
 
     def __init__(self, app, url_prefix='', error_handler=exception_handler,
                  **kwargs):
-        """
-        Initialize the adapter.  The app can actually be either a flask.Flask
-        instance or a flask.Blueprint instance.
+        """Initialize the adapter.
 
-        :param flask.Flask|flask.Blueprint app: The flask app that is responsible for
+        The app can be an aiohttp.web.Application instance.
+
+        :param aiohttp.web.Application app: The flask app that is responsible for
             handling the web application.
         :param unicode url_prefix: The url prefix will be prepended to
             every route that is registered on this dispatcher.  It is
@@ -61,7 +58,7 @@ class AIODispatcher(DispatcherBase):
             on the '/api' path.
         :param function error_handler: A function that takes a dispatcher,
             accepted_mimetypes, and exception that handles error responses.
-            It should return a flask.Response instance.
+            It should return a aiohttp.web.Response instance.
         """
         self.app = app
         if url_prefix and not url_prefix.startswith('/'):
@@ -72,23 +69,23 @@ class AIODispatcher(DispatcherBase):
 
     @property
     def base_url(self):
+        """Return the base url."""
         return self._base_url
 
     def register_route(self, endpoint, endpoint_func=None, route=None, methods=None, expect_handler=None, **options):
-        """
-        Registers the endpoints on the flask application
-        or blueprint.  It does so by using the add_url_rule on
-        the blueprint/app.  It wraps the endpoint_func with the
-        ``flask_dispatch_wrapper`` which returns an updated function.
+        """Register the endpoints on the aiohttp application.
+
+        It does so by using the add_route on the app.router. It wraps the
+        endpoint_func with the ``dec`` which returns an updated coroutine.
         This function appropriately sets the RequestContainer object
         before passing it to the apimethod.
 
         :param unicode endpoint: The name of the endpoint.  This is typically
-            used in flask for reversing urls
-        :param method endpoint_func: The actual function that is going to be called.
-            This is generally going to be a @apimethod decorated, ResourceBase subclass
-            method.
-        :param unicode route:  The actual route that is going to be used.
+            used in aiohttp for reversing urls
+        :param method endpoint_func: The actual function or coroutine that is
+            going to be called. This is generally going to be a @apimethod
+            decorated, ResourceBase subclass method.
+        :param str route: The actual route that is going to be used.
         :param list methods: The http verbs that can be used with this endpoint
         :param coroutine expect_handler: The additional option to pass to the add_route
         """
@@ -100,9 +97,12 @@ class AIODispatcher(DispatcherBase):
                 name=endpoint, expect_handler=expect_handler
             )
 
+
 def dec(dispatcher, request_handler):
+    """Decorator that wraps @apimethod decorated coroutine or function."""
     @wraps(request_handler)
     async def request_handler_wrapper(request):
+        """Wrapper for @apimethod decorated coroutine or function."""
         try:
             body_args = await request.json()
         except JSONDecodeError:

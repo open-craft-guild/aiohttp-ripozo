@@ -44,4 +44,5 @@ def get_request_mime_types_priorities(request):
 
     return tuple(grouped_mime_priorities)
 
+
 __all__ = ('get_request_mime_types_priorities', )
