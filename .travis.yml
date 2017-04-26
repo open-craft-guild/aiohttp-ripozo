@@ -6,7 +6,6 @@ python:
 - 3.6
 - 3.6-dev
 - pypy
-- pypy3
 - nightly
 matrix:
   fast_finish: true
@@ -16,6 +15,8 @@ matrix:
   include:
   - python: 3.6
     env: TOXENV=pre-commit
+  - python: pypy3
+    before_install: pip install -U setuptools<30
 cache:
   pip: true
   directories:
