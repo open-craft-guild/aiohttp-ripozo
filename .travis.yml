@@ -15,7 +15,7 @@ matrix:
   - python: 3.6
     env: TOXENV=pre-commit
   - python: pypy3
-    before_install: pip install -U setuptools<30
+    before_install: pip install -U 'setuptools<30'
 cache:
   pip: true
   directories:
