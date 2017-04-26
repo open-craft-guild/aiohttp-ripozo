@@ -16,8 +16,8 @@ matrix:
     env: TOXENV=pre-commit
   - python: pypy3
     before_install:
-    - pyenv install pypy3.5-5.7.1-beta
-    - pyenv shell pypy3.5-5.7.1-beta
+    - $HOME/.pyenv/pyenv install pypy3.5-5.7.1-beta
+    - $HOME/.pyenv/pyenv shell pypy3.5-5.7.1-beta
     - pip install -U 'setuptools<30' six
 cache:
   pip: true
