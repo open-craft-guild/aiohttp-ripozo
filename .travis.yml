@@ -15,14 +15,27 @@ matrix:
   - python: 3.6
     env: TOXENV=pre-commit
   - python: pypy3
+    env: PYPY_VERSION=pypy3.5-5.7.1-beta
     before_install:
-    - $HOME/.pyenv/pyenv install pypy3.5-5.7.1-beta
-    - $HOME/.pyenv/pyenv shell pypy3.5-5.7.1-beta
+    - |
+      export PYENV_ROOT="$HOME/.pyenv"
+      if [ -f "$PYENV_ROOT/bin/pyenv" ]
+      then
+        pushd "$PYENV_ROOT" && git pull && popd
+      else
+        rm -rf "$PYENV_ROOT" \
+        && git clone --depth 1 https://github.com/yyuu/pyenv.git "$PYENV_ROOT"
+      fi
+      "$PYENV_ROOT/bin/pyenv" install "$PYPY_VERSION"
+      virtualenv --python="$PYENV_ROOT/versions/$PYPY_VERSION/bin/python" \
+                 "$HOME/virtualenvs/$PYPY_VERSION"
+      source "$HOME/virtualenvs/$PYPY_VERSION/bin/activate"
     - pip install -U 'setuptools<30' six
 cache:
   pip: true
   directories:
   - "$HOME/.pre-commit"
+  - "$HOME/.pyenv"
 before_install: pip install -U setuptools
 install: pip install -U -r requirements-dev.txt
 script: |
