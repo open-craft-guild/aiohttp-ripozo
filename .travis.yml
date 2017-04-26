@@ -16,6 +16,23 @@ matrix:
     env: TOXENV=pre-commit
   - python: pypy3
     env: PYPY_VERSION=pypy3.5-5.7.1-beta
+    addons:
+      apt:
+        packages:
+        - make
+        - build-essential
+        - libssl-dev
+        - zlib1g-dev
+        - libbz2-dev
+        - libreadline-dev
+        - libsqlite3-dev
+        - wget
+        - curl
+        - llvm
+        - libncurses5-dev
+        - libncursesw5-dev
+        - xz-utils
+        - tk-dev
     before_install:
     - |
       export PYENV_ROOT="$HOME/.pyenv"
