@@ -21,7 +21,7 @@ cache:
   directories:
   - "$HOME/.pre-commit"
 before_install: pip install -U setuptools
-install: pip install -U pytest pytest-sugar pre-commit
+install: pip install -U -r requirements-dev.txt
 script: |
     if [[ $TOXENV == pre-commit ]]
     then
