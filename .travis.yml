@@ -17,6 +17,7 @@ matrix:
   - python: pypy3
     env: PYPY_VERSION=pypy3.5-5.7.1-beta
     dist: trusty
+    sudo: required
     addons:
       apt:
         packages:
@@ -36,7 +37,6 @@ matrix:
         - tk-dev
     before_install:
     - |
-      pkg-config --cflags libssl-dev
       export PYENV_ROOT="$HOME/.pyenv"
       if [ -f "$PYENV_ROOT/bin/pyenv" ]
       then
