@@ -16,7 +16,7 @@ matrix:
     env: TOXENV=pre-commit
   - python: pypy3
     env: PYPY_VERSION=pypy3.5-5.7.1-beta
-    sudo: required
+    dist: trusty
     addons:
       apt:
         packages:
@@ -36,7 +36,7 @@ matrix:
         - tk-dev
     before_install:
     - |
-      pkg-config --cflags  --libs libssl-dev
+      pkg-config --cflags libssl-dev
       export PYENV_ROOT="$HOME/.pyenv"
       if [ -f "$PYENV_ROOT/bin/pyenv" ]
       then
