@@ -7,7 +7,6 @@ python:
 - 3.6-dev
 - pypy
 - nightly
-
 _base_envs:
 - &pypy_base
   python: pypy
@@ -47,12 +46,10 @@ _base_envs:
       eval "$(pyenv init -)"
       eval "$(pyenv virtualenv-init -)"
     fi
-    pyenv install "$PYPY_VERSION"
+    pyenv install --skip-existing --keep --verbose "$PYPY_VERSION"
     pyenv shell "$PYPY_VERSION"
 matrix:
   fast_finish: true
-  allow_failures:
-  - python: pypy3
   include:
   - python: 3.6
     env: TOXENV=pre-commit
@@ -62,45 +59,6 @@ matrix:
     - PYPY_VERSION=pypy3.5-5.7.1-beta
     - PYENV_ROOT="$HOME/.pyenv"
     - PATH="$PYENV_ROOT/bin:$PATH"
-  - python: pypy3
-    env:
-    - PYPY_VERSION=pypy3.5-5.7.1-beta
-    - PYENV_ROOT="$HOME/.pyenv"
-    - PATH="$PYENV_ROOT/bin:$PATH"
-    dist: trusty
-    sudo: required
-    addons:
-      apt:
-        packages:
-        - make
-        - build-essential
-        - libssl-dev
-        - zlib1g-dev
-        - libbz2-dev
-        - libreadline-dev
-        - libsqlite3-dev
-        - wget
-        - curl
-        - llvm
-        - libncurses5-dev
-        - libncursesw5-dev
-        - xz-utils
-        - tk-dev
-    before_install:
-    - |
-      if [ -f "$PYENV_ROOT/bin/pyenv" ]
-      then
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
-        pyenv update
-      else
-        rm -rf "$PYENV_ROOT"
-        curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
-      fi
-      pyenv install "$PYPY_VERSION"
-      pyenv shell "$PYPY_VERSION"
 cache:
   pip: true
   directories:
